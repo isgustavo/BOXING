@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ODT.UI.Util;
+using System.Collections;
 using UnityEngine;
 
 namespace ADT.Boxing
@@ -6,47 +7,52 @@ namespace ADT.Boxing
     [RequireComponent(typeof(Animator))]
     public class PunchBehaviour : MonoBehaviour
     {
+        [Header("Punch Animation")]
         [SerializeField]
         private float timePunchAnimation = 0;
         [SerializeField]
         private float totalPunchTimeAnimation = 0.2f;
         [SerializeField]
         private float updatePunchTimeAnimation = 0.05f;
-        [SerializeField]
-        private bool isAnimating = false;
-        [SerializeField]
-        private bool isPointerDown = false;
-
+        
         private Animator animator;
-        private Transform punchTargetPoint;
 
-        public Transform anotherFighterTargetPoint;
+        public Transform otherPlayerTransform;
+        private Transform playerTargetTransform;
 
-        private bool isAnotherFighterOnTheLeft = false;
-        private bool wasAnotherFighterOnTheLeft = false;
+        private bool isPunching = false;
+        private bool isAnimating = false;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            punchTargetPoint = GetComponentInChildren<Transform>();
+            playerTargetTransform = GetComponentInChildren<Transform>();
         }
-        
+
         private void Update()
         {
-            if (isPointerDown)
+            if (UIVirtualInput.GetInput(UIPunchButtonBehaviour.VIRTUAL_PUNCH_BUTTON_VALUE) == 1)
             {
-                if (!IsAnotherPlayerOnTheSameSide())
+                if (!isPunching)
                 {
-                    OnPointerDownEvent();
+                    isPunching = true;
+                    Punch(IsOtherPlayerOnTheLeft());
+                }
+            }
+            else
+            {
+                if (isPunching)
+                {
+                    isPunching = false;
+                    Recover();
                 }
             }
         }
 
-        private bool IsAnotherPlayerOnTheSameSide()
+        private bool IsOtherPlayerOnTheLeft()
         {
-            wasAnotherFighterOnTheLeft = isAnotherFighterOnTheLeft;
-            isAnotherFighterOnTheLeft = IsAnotherFighterOnTheLeft();
-            if (isAnotherFighterOnTheLeft == wasAnotherFighterOnTheLeft)
+            if (otherPlayerTransform != null &&
+                playerTargetTransform.position.x > otherPlayerTransform.position.x)
             {
                 return true;
             }
@@ -56,38 +62,14 @@ namespace ADT.Boxing
             }
         }
 
-        private bool IsAnotherFighterOnTheLeft()
+        private void Punch(bool isLeft)
         {
-            if (anotherFighterTargetPoint != null &&
-                punchTargetPoint != null &&
-                punchTargetPoint.position.x >= anotherFighterTargetPoint.position.x)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            StartCoroutine(PunchAnimatorByCoroutine(isLeft));
         }
-        
-        public void OnPointerDownEvent()
+
+        private void Recover()
         {
-            if (!isAnimating)
-            {
-                isPointerDown = true;
-                Punch();
-            }
-        }
-        
-        public void OnPointerUpEvent()
-        {
-            isPointerDown = false;
             StartCoroutine(ReversePunchAnimatorByCoroutine());
-        }
-
-        private void Punch()
-        {
-            StartCoroutine(PunchAnimatorByCoroutine(IsAnotherFighterOnTheLeft()));
         }
 
         private IEnumerator PunchAnimatorByCoroutine(bool isLeft)
@@ -101,13 +83,12 @@ namespace ADT.Boxing
             {
                 yield return IncreaseTimePunchValueAnimation(totalPunchTimeAnimation);
             }
-
             isAnimating = false;
         }
 
         private IEnumerator ReversePunchAnimatorByCoroutine()
         {
-            yield return new WaitUntil(() => (isPointerDown == false) && (isAnimating == false));
+            yield return new WaitUntil(() => (isAnimating == false));
             isAnimating = true;
             if (timePunchAnimation < 0f)
             {
@@ -117,7 +98,6 @@ namespace ADT.Boxing
             {
                 yield return DecreaseTimePunchValeuAnimation(0f);
             }
-
             timePunchAnimation = 0f;
             animator.SetFloat("Punch", timePunchAnimation);
             isAnimating = false;

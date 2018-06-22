@@ -1,46 +1,27 @@
-﻿using UnityEngine;
+﻿using ODT.UI.Util;
+using UnityEngine;
 
-namespace ADT.Boxing
+namespace ODT.Boxing
 {
     public class MoveBehaviour : MonoBehaviour
     {
         [SerializeField]
-        private float speedMoviment = 2f;
+        private float speedMoviment = 20f;
 
-        private Vector3 currentInput;
-        private bool isPointerDown;
+        private Rigidbody2D rb2d;
 
-        private void Awake()
+        private void OnEnable()
         {
-            currentInput.z = 0;
+            rb2d = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
         {
-            if(!isPointerDown)
-            {
-                transform.Translate(currentInput * speedMoviment * Time.deltaTime);
-            }
-        }
+            Vector3 movement = new Vector2(
+                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_HORIZONTAL_VALUE), 
+                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_VERTICAL_VALUE));
 
-        public void OnPointerDownEvent()
-        {
-            isPointerDown = true;
-        }
-
-        public void OnPointerUpEvent()
-        {
-            isPointerDown = false;
-        }
-
-        public void OnCurrentInputX(int input)
-        {
-            currentInput.x = input;
-        }
-
-        public void OnCurrentInputY(int input)
-        {
-            currentInput.y = input;
+            transform.position = Vector2.Lerp(transform.position, transform.position + movement, speedMoviment * Time.deltaTime);
         }
     }
 }
