@@ -7,13 +7,15 @@ namespace ADT.Boxing
     [RequireComponent(typeof(Animator))]
     public class PunchBehaviour : MonoBehaviour
     {
+        private static string PUNCH_ANIMATION_VALUE_NAME = "Punch";
+
         [Header("Punch Animation")]
         [SerializeField]
-        private float timePunchAnimation = 0;
+        private float punchAnimatorValue = 0;
         [SerializeField]
-        private float totalPunchTimeAnimation = 0.2f;
+        private float punchTotalTimeAnimation = 0.2f;
         [SerializeField]
-        private float updatePunchTimeAnimation = 0.05f;
+        private float punchSpeedAnimation = 0.05f;
         
         private Animator animator;
 
@@ -23,6 +25,8 @@ namespace ADT.Boxing
         private bool isPunching = false;
         private bool isAnimating = false;
 
+        private bool isLeft = false;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -31,22 +35,30 @@ namespace ADT.Boxing
 
         private void Update()
         {
+            if (isAnimating)
+            {
+                return;
+            }
+
             if (UIVirtualInput.GetInput(UIPunchButtonBehaviour.VIRTUAL_PUNCH_BUTTON_VALUE) == 1)
             {
-                if (!isPunching)
+                if (isPunching)
                 {
-                    isPunching = true;
-                    Punch(IsOtherPlayerOnTheLeft());
+                    return;
                 }
+
+                isLeft = IsOtherPlayerOnTheLeft();
+                Punch();
             }
             else
             {
                 if (isPunching)
                 {
-                    isPunching = false;
                     Recover();
+                    
                 }
             }
+            
         }
 
         private bool IsOtherPlayerOnTheLeft()
@@ -62,66 +74,69 @@ namespace ADT.Boxing
             }
         }
 
-        private void Punch(bool isLeft)
+        private void Punch()
         {
-            StartCoroutine(PunchAnimatorByCoroutine(isLeft));
+            isPunching = true;
+            StartCoroutine(PunchAnimator(isLeft));
         }
 
         private void Recover()
         {
-            StartCoroutine(ReversePunchAnimatorByCoroutine());
+            isPunching = false;
+            StartCoroutine(ReversePunchAnimator(isLeft));
         }
 
-        private IEnumerator PunchAnimatorByCoroutine(bool isLeft)
+        private IEnumerator PunchAnimator(bool isLeft)
         {
             isAnimating = true;
             if (isLeft)
             {
-                yield return DecreaseTimePunchValeuAnimation(-totalPunchTimeAnimation);
+                yield return DecreasePunchAnimatorValeuTo(-punchTotalTimeAnimation);
             }
             else
             {
-                yield return IncreaseTimePunchValueAnimation(totalPunchTimeAnimation);
+                yield return IncreasePunchAnimationValueTo(punchTotalTimeAnimation);
             }
             isAnimating = false;
         }
 
-        private IEnumerator ReversePunchAnimatorByCoroutine()
+        private IEnumerator ReversePunchAnimator(bool isLeft)
         {
-            yield return new WaitUntil(() => (isAnimating == false));
             isAnimating = true;
-            if (timePunchAnimation < 0f)
+
+            if (isLeft)
             {
-                yield return DecreaseTimePunchValeuAnimation(0);
+                yield return IncreasePunchAnimationValueTo(0f);
             }
             else
             {
-                yield return DecreaseTimePunchValeuAnimation(0f);
+                yield return DecreasePunchAnimatorValeuTo(0f);
             }
-            timePunchAnimation = 0f;
-            animator.SetFloat("Punch", timePunchAnimation);
+
+            punchAnimatorValue = 0f;
+            animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, punchAnimatorValue);
+
             isAnimating = false;
         }
 
-
-        private IEnumerator IncreaseTimePunchValueAnimation(float totalTime)
+        private IEnumerator IncreasePunchAnimationValueTo(float animatorValue)
         {
             do
             {
-                animator.SetFloat("Punch", timePunchAnimation);
-                yield return new WaitForSeconds(updatePunchTimeAnimation);
-                timePunchAnimation += updatePunchTimeAnimation;
-            } while (timePunchAnimation <= totalTime);
+                animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, punchAnimatorValue);
+                yield return new WaitForSeconds(punchSpeedAnimation);
+                punchAnimatorValue += punchSpeedAnimation;
+            } while (punchAnimatorValue <= animatorValue);
         }
 
-        private IEnumerator DecreaseTimePunchValeuAnimation(float totalTime)
+        private IEnumerator DecreasePunchAnimatorValeuTo(float animatorValue)
         {
             do
             {
-                animator.SetFloat("Punch", timePunchAnimation);
-                yield return new WaitForSeconds(updatePunchTimeAnimation);
-                timePunchAnimation -= updatePunchTimeAnimation;
-            } while (timePunchAnimation >= totalTime);
+                animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, punchAnimatorValue);
+                yield return new WaitForSeconds(punchSpeedAnimation);
+                punchAnimatorValue -= punchSpeedAnimation;
+            } while (punchAnimatorValue >= animatorValue);
         }
     }
 }

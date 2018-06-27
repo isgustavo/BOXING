@@ -18,10 +18,10 @@ namespace ODT.Boxing
         private void Update()
         {
             Vector3 movement = new Vector2(
-                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_HORIZONTAL_VALUE), 
-                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_VERTICAL_VALUE));
+                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_VERTICAL_VALUE), 
+                    -UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_HORIZONTAL_VALUE));
 
-            transform.position = Vector2.Lerp(transform.position, transform.position + movement, speedMoviment * Time.deltaTime);
+            transform.Translate(movement.normalized * speedMoviment * Time.deltaTime);
         }
     }
 }
