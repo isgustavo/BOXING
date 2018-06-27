@@ -16,21 +16,26 @@ namespace ADT.Boxing
         private float punchTotalTimeAnimation = 0.2f;
         [SerializeField]
         private float punchSpeedAnimation = 0.05f;
-        
+
         private Animator animator;
+        private BoxCollider2D[] punchColliders;
 
         public Transform otherPlayerTransform;
+
         private Transform playerTargetTransform;
+        private float playerXOffset = .7f;
 
         private bool isPunching = false;
         private bool isAnimating = false;
 
-        private bool isLeft = false;
+        private bool isLeft = true;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             playerTargetTransform = GetComponentInChildren<Transform>();
+
+            punchColliders = GetComponents<BoxCollider2D>();
         }
 
         private void Update()
@@ -54,11 +59,10 @@ namespace ADT.Boxing
             {
                 if (isPunching)
                 {
-                    Recover();
-                    
+                    DisableCollider(isLeft);
+                    Recover(); 
                 }
             }
-            
         }
 
         private bool IsOtherPlayerOnTheLeft()
@@ -83,7 +87,7 @@ namespace ADT.Boxing
         private void Recover()
         {
             isPunching = false;
-            StartCoroutine(ReversePunchAnimator(isLeft));
+            StartCoroutine(RecoverPunchAnimator(isLeft));
         }
 
         private IEnumerator PunchAnimator(bool isLeft)
@@ -92,15 +96,20 @@ namespace ADT.Boxing
             if (isLeft)
             {
                 yield return DecreasePunchAnimatorValeuTo(-punchTotalTimeAnimation);
+                punchAnimatorValue = -punchTotalTimeAnimation; 
             }
             else
             {
                 yield return IncreasePunchAnimationValueTo(punchTotalTimeAnimation);
+                punchAnimatorValue = punchTotalTimeAnimation;
             }
+
+            EnableCollider(isLeft);
+            animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, punchAnimatorValue);
             isAnimating = false;
         }
 
-        private IEnumerator ReversePunchAnimator(bool isLeft)
+        private IEnumerator RecoverPunchAnimator(bool isLeft)
         {
             isAnimating = true;
 
@@ -114,7 +123,7 @@ namespace ADT.Boxing
             }
 
             punchAnimatorValue = 0f;
-            animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, punchAnimatorValue);
+            animator.SetFloat(PUNCH_ANIMATION_VALUE_NAME, 0);
 
             isAnimating = false;
         }
@@ -137,6 +146,30 @@ namespace ADT.Boxing
                 yield return new WaitForSeconds(punchSpeedAnimation);
                 punchAnimatorValue -= punchSpeedAnimation;
             } while (punchAnimatorValue >= animatorValue);
+        }
+
+        private void EnableCollider(bool isLeft)
+        {
+            if (isLeft)
+            {
+                punchColliders[0].enabled = true;
+            }
+            else
+            {
+                punchColliders[1].enabled = true;
+            }
+        }
+
+        private void DisableCollider(bool isLeft)
+        {
+            if (isLeft)
+            {
+                punchColliders[0].enabled = false;
+            }
+            else
+            {
+                punchColliders[1].enabled = false;
+            }
         }
     }
 }
