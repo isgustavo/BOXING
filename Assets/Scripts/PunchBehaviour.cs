@@ -49,7 +49,10 @@ namespace ADT.Boxing
             {
                 if (isPunching)
                 {
-                    return;
+                    if (isLeft == IsOtherPlayerOnTheLeft())
+                    {
+                        return;
+                    }   
                 }
 
                 isLeft = IsOtherPlayerOnTheLeft();
