@@ -10,34 +10,39 @@ namespace ADT.Boxing
 
     public class MoveBehaviour : MonoBehaviour, IAcceptable
     {
-        [SerializeField]
-        private bool isNPC = true;
+
         [SerializeField]
         private float speedMoviment = 20f;
+        [SerializeField]
+        private float fallBackMoviment = 35f;
 
-        private Rigidbody2D rb2d;
+        [Header("Other Player")]
+        public Transform otherPlayerTransform; // temp 
+        [SerializeField]
+        private bool isPlayer2 = true; // temp
 
-
-        //private bool isFallback = false;
-
-        private void OnEnable()
-        {
-            rb2d = GetComponent<Rigidbody2D>();
-        }
+        private bool isFlip = false;
 
         private void Update()
         {
-            //if (isFallback)
-            //{
-            //    return;
-            //}
-            if (isNPC)
+            if (transform.position.y >= otherPlayerTransform.position.y && !isFlip)
+            {
+                transform.Rotate(Vector3.up, 180f);
+                isFlip = true;
+            }
+            else if(transform.position.y < otherPlayerTransform.position.y && isFlip)
+            {
+                transform.Rotate(Vector3.up, 180f);
+                isFlip = false;
+            }
+
+            if (isPlayer2)
             {
                 return;
             }
 
             Vector3 movement = new Vector2(
-                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_VERTICAL_VALUE), 
+                    UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_VERTICAL_VALUE) * (isFlip ? -1f : 1f), 
                     -UIVirtualInput.GetInput(UIVirtualJoystickBehaviour.VIRTUAL_JOYSTICK_HORIZONTAL_VALUE));
 
             transform.Translate(movement.normalized * speedMoviment * Time.deltaTime);
@@ -45,8 +50,7 @@ namespace ADT.Boxing
 
         public void OnFallbackEvent()
         {
-
-            transform.Translate(-transform.up * speedMoviment * Time.deltaTime);
+            transform.Translate(transform.up * fallBackMoviment * Time.deltaTime);
         }
     }
 }

@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 456508696}
   - component: {fileID: 456508695}
   - component: {fileID: 456508700}
+  - component: {fileID: 456508703}
   - component: {fileID: 456508698}
   - component: {fileID: 456508699}
   - component: {fileID: 456508701}
@@ -226,6 +227,22 @@ MonoBehaviour:
   punchAnimatorValue: 0
   punchTotalTimeAnimation: 0.2
   punchSpeedAnimation: 0.05
+  OnPunchEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 456508703}
+        m_MethodName: AddScorePoint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   otherPlayerTransform: {fileID: 1848400535}
 --- !u!114 &456508699
 MonoBehaviour:
@@ -238,8 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea7070a823f82b4bbe0c057bfb36d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNPC: 0
   speedMoviment: 2
+  fallBackMoviment: 35
+  otherPlayerTransform: {fileID: 718814680}
+  isPlayer2: 0
 --- !u!50 &456508700
 Rigidbody2D:
   serializedVersion: 4
@@ -269,21 +288,21 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.0897982, y: 0.36818743}
+  m_Offset: {x: 0.8387672, y: 0.3629937}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
-    oldSize: {x: 0.56, y: 0.94}
+    pivot: {x: 0.2, y: 0.5}
+    oldSize: {x: 1.2, y: 0.94}
     newSize: {x: 0.56, y: 0.94}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2291112, y: 0.20699275}
+  m_Size: {x: 0.23949885, y: 0.19660527}
   m_EdgeRadius: 0
 --- !u!61 &456508702
 BoxCollider2D:
@@ -294,22 +313,35 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.080271, y: -0.36020312}
+  m_Offset: {x: 0.84135866, y: -0.36020312}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
-    oldSize: {x: 0.56, y: 0.94}
+    pivot: {x: 0.2, y: 0.5}
+    oldSize: {x: 1.2, y: 0.94}
     newSize: {x: 0.56, y: 0.94}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23945802, y: 0.19959372}
+  m_Size: {x: 0.23945862, y: 0.19959372}
   m_EdgeRadius: 0
+--- !u!114 &456508703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456508694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b6f578b5bcaac4d945374b52b73d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: {fileID: 11400000, guid: a2e1f38f0901042469135354af95f74f, type: 2}
+  OnScoreUpdateEvent: {fileID: 11400000, guid: 1314d09e580d4e04f8314adaea8af8cd, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +493,7 @@ GameObject:
   - component: {fileID: 718814682}
   m_Layer: 8
   m_Name: Boxer2
-  m_TagString: Player
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,8 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea7070a823f82b4bbe0c057bfb36d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNPC: 1
   speedMoviment: 20
+  fallBackMoviment: 35
+  otherPlayerTransform: {fileID: 456508697}
+  isPlayer2: 1
 --- !u!50 &718814677
 Rigidbody2D:
   serializedVersion: 4
@@ -554,7 +588,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 03fa776a2843f6c4f9853fd2b493c2c8, type: 3}
   m_Color: {r: 1, g: 0.5686275, b: 0.5647059, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.56, y: 0.94}
@@ -588,7 +622,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.28000006, y: 3.9790393e-15}
+  m_Offset: {x: -0.01, y: 3.9790393e-15}
   serializedVersion: 2
   m_Radius: 0.14
 --- !u!114 &718814682
@@ -785,6 +819,7 @@ RectTransform:
   m_Children:
   - {fileID: 1516033044}
   - {fileID: 1497034195}
+  - {fileID: 1889359383}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1124,3 +1159,119 @@ Transform:
   m_Father: {fileID: 718814680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1889359382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1889359383}
+  - component: {fileID: 1889359385}
+  - component: {fileID: 1889359384}
+  - component: {fileID: 1889359387}
+  - component: {fileID: 1889359386}
+  m_Layer: 5
+  m_Name: BoxerScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1889359383
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889359382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1097029302}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.32914227, y: 0.9093334}
+  m_AnchorMax: {x: 0.669, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1889359384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889359382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.47058827, g: 0.9215687, b: 0.53333336, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 53
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &1889359385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889359382}
+--- !u!114 &1889359386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889359382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0df2d7345f244541b43d06abcb93250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 1314d09e580d4e04f8314adaea8af8cd, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1889359387}
+        m_MethodName: OnScoreUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1889359387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889359382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f00fa9837466d4bb9ff33fec398c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: {fileID: 11400000, guid: a2e1f38f0901042469135354af95f74f, type: 2}

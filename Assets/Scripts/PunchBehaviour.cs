@@ -1,6 +1,7 @@
 ﻿using ODT.UI.Util;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ADT.Boxing
 {
@@ -17,10 +18,15 @@ namespace ADT.Boxing
         [SerializeField]
         private float punchSpeedAnimation = 0.05f;
 
+        [Header("Events")]
+        [SerializeField]
+        private UnityEvent OnPunchEvent;
+
         private Animator animator;
         private BoxCollider2D[] punchColliders;
 
-        public Transform otherPlayerTransform;
+        [Header("Other Player")]
+        public Transform otherPlayerTransform; // temp 
 
         private Transform playerTargetTransform;
         private float playerXOffset = .7f;
@@ -65,6 +71,14 @@ namespace ADT.Boxing
                     DisableCollider(isLeft);
                     Recover(); 
                 }
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "Player2")
+            {
+                OnPunchEvent.Invoke();
             }
         }
 

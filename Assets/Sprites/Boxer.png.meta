@@ -64,7 +64,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -150,10 +150,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3
         y: 262
-        width: 28
+        width: 60
         height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,10 +170,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3
         y: 210
-        width: 28
+        width: 60
         height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -185,55 +185,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boxer_2
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 210
-        width: 28
-        height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89bc5ed74218f2d4b9e19fde4a204b61
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boxer_3
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 211
-        width: 42
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b6f33f1dbda4a24da7400f2a6a5c249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Boxer_4
       rect:
         serializedVersion: 2
-        x: 116
+        x: 99
         y: 211
         width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -250,10 +210,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3
         y: 158
-        width: 28
+        width: 60
         height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,55 +225,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boxer_6
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 158
-        width: 28
-        height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0cad6e99d5fe6aa4183871b1b50ccda7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boxer_7
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 158
-        width: 42
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6eab5c9ecead8a4b8a7a88bd27cd91b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Boxer_8
       rect:
         serializedVersion: 2
-        x: 116
-        y: 158
+        x: 100
+        y: 159
         width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -330,10 +250,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3
         y: 106
-        width: 30
+        width: 60
         height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,12 +268,12 @@ TextureImporter:
       name: Boxer_10
       rect:
         serializedVersion: 2
-        x: 38
-        y: 106
-        width: 24
+        x: 99
+        y: 108
+        width: 60
         height: 47
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,55 +285,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boxer_11
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 55
-        width: 44
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a66c2c81e1dd2a646b353c84fa726fc0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boxer_12
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 55
-        width: 62
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89684212f1b7eba41a64520ff312c2b5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Boxer_13
       rect:
         serializedVersion: 2
-        x: 134
-        y: 55
-        width: 42
+        x: 7
+        y: 54
+        width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -432,8 +312,8 @@ TextureImporter:
         y: 55
         width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -445,55 +325,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boxer_15
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 4
-        width: 44
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d32fd4be0a8a3245baf37147493a57b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boxer_16
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 4
-        width: 62
-        height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1fc3135d1ff65f64d91051c0b10016ba
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Boxer_17
       rect:
         serializedVersion: 2
-        x: 134
-        y: 4
-        width: 42
+        x: 8
+        y: 3
+        width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -512,8 +352,8 @@ TextureImporter:
         y: 4
         width: 60
         height: 46
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.2, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
